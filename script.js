@@ -2,6 +2,7 @@ var app = new Vue({
   el: "#app",
   data: {
     flipCard: false,
+    canClick: true,
     clickedCard: {
       firstCard: "",
       secondCard: "",
@@ -95,6 +96,7 @@ var app = new Vue({
   },
   methods: {
     matchCard: function () {
+      this.canClick = true;
       console.log("matched");
     },
     unflipCard: function () {
@@ -103,17 +105,22 @@ var app = new Vue({
         function () {
           this.clickedCard.firstCard.classList.remove("flip");
           this.clickedCard.secondCard.classList.remove("flip");
+          this.canClick = true;
         }.bind(this),
         1000
       );
     },
     showClass: function (card, event) {
+      if (!this.canClick) {
+        return;
+      }
       console.log(event.currentTarget.dataset.value);
       event.currentTarget.classList.add("flip");
       if (!this.flipCard) {
         this.flipCard = true;
         this.clickedCard.firstCard = event.currentTarget;
       } else {
+        this.canClick = false;
         this.flipCard = false;
         this.clickedCard.secondCard = event.currentTarget;
         console.log(this.clickedCard.secondCard);
