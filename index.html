@@ -16,13 +16,16 @@
       <div class="container">
         <div class="board">
           <div class="card" v-for="card in cards" :id="card.id" :key="card.id">
-            <div class="back">
+            <div
+              class="back"
+              :class="{'match' : styleClass.match.includes(card.id), 'unmatch': matchIndex.includes(card.id)}"
+            >
               <i :class="card.class"></i>
             </div>
             <div
               :data-value="card.dataKind"
               class="front"
-              :class="{'flip': styleClass.flip}"
+              :class="{'flip': styleClass.flip === card.id || styleClass.match.includes(card.id) || matchIndex.includes(card.id)}"
               @click="showClass(card , $event)"
             ></div>
           </div>

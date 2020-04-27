@@ -10,7 +10,9 @@ var app = new Vue({
     clickedIndex: [],
     styleClass: {
       flip: false,
+      match: [],
     },
+    matchIndex: [],
     cards: [
       {
         id: 1,
@@ -97,19 +99,17 @@ var app = new Vue({
   methods: {
     matchCard: function () {
       this.canClick = true;
-      console.log("matched");
+      if (this.matchIndex.length === 2) {
+        console.log("matched");
+        this.matchIndex = [];
+      }
+      this.matchIndex = [];
     },
     unflipCard: function () {
       setTimeout(
         function () {
-          this.clickedCard.firstCard.classList.remove("flip");
-          this.clickedCard.secondCard.classList.remove("flip");
-          this.clickedCard.firstCard.parentNode.firstChild.classList.remove(
-            "unmatch"
-          );
-          this.clickedCard.secondCard.parentNode.firstChild.classList.remove(
-            "unmatch"
-          );
+          this.matchIndex = [];
+          this.styleClass.flip = false;
           this.canClick = true;
         }.bind(this),
         1000
@@ -120,34 +120,41 @@ var app = new Vue({
         return;
       }
       event.currentTarget.classList.add("flip");
+      this.styleClass.flip = card.id;
       if (!this.flipCard) {
+        //first click
         this.flipCard = true;
+        this.matchIndex.push(card.id);
         this.clickedCard.firstCard = event.currentTarget;
       } else {
+        //second click
         this.canClick = false;
         this.flipCard = false;
+        if (this.matchIndex.indexOf(card.id) === -1) {
+          this.matchIndex.push(card.id);
+        } else {
+          console.log("cannot push");
+        }
+
         this.clickedCard.secondCard = event.currentTarget;
         if (
           this.clickedCard.firstCard.dataset.value ===
           this.clickedCard.secondCard.dataset.value
         ) {
-          this.clickedCard.firstCard.parentNode.firstChild.classList.add(
-            "match"
-          );
-          this.clickedCard.secondCard.parentNode.firstChild.classList.add(
-            "match"
-          );
+          //if both clicks matches
+          //check for unique matched index
+          if (this.styleClass.match.indexOf(...this.matchIndex) === -1) {
+            this.styleClass.match.push(...this.matchIndex);
+          } else {
+            console.log("cannot push");
+          }
           this.matchCard();
         } else {
-          this.clickedCard.firstCard.parentNode.firstChild.classList.add(
-            "unmatch"
-          );
-          this.clickedCard.secondCard.parentNode.firstChild.classList.add(
-            "unmatch"
-          );
+          //if not matches
           this.unflipCard();
         }
       }
+      console.log(this.styleClass.match);
     },
   },
   created() {
