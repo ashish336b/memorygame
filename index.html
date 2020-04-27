@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Title</title>
     <link rel="stylesheet" href="./css/style.css" />
     <script
       src="https://kit.fontawesome.com/54761a1713.js"
@@ -20,9 +20,10 @@
               <i :class="card.class"></i>
             </div>
             <div
+              :data-value="card.dataKind"
               class="front"
-              :class="{'flip': (card.id === styleClass.flip || clickedIndex.includes(card.id))}"
-              @click="showClass(card.id)"
+              :class="{'flip': styleClass.flip}"
+              @click="showClass(card , $event)"
             ></div>
           </div>
         </div>
