@@ -18,14 +18,19 @@
           <div class="card" v-for="card in cards" :id="card.id" :key="card.id">
             <div
               class="back"
-              :class="{'match' : styleClass.match.includes(card.id), 'unmatch': matchIndex.includes(card.id)}"
+              :class="
+              {
+                'match' : styleClass.match.includes(card.id), 
+                'unmatch': clickedIndex.includes(card.id) && clickedIndex.length === 2
+              }
+            "
             >
               <i :class="card.class"></i>
             </div>
             <div
               :data-value="card.dataKind"
               class="front"
-              :class="{'flip': styleClass.flip === card.id || styleClass.match.includes(card.id) || matchIndex.includes(card.id)}"
+              :class="{'flip': styleClass.flip === card.id || styleClass.match.includes(card.id) || clickedIndex.includes(card.id)}"
               @click="showClass(card , $event)"
             ></div>
           </div>
