@@ -126,15 +126,19 @@ var app = new Vue({
         this.clickedIndex.push(card.id);
         this.clickedCard.firstCard = event.currentTarget;
       } else {
+        //cannot click on one card twice
+        if (this.clickedIndex[0] === card.id) {
+          return;
+        }
+        //clicked index should be unique and unique
+        if (!this.clickedIndex.indexOf(card.id) === -1) {
+          this.clickedCard = [];
+          return;
+        }
         //second click
         this.canClick = false;
         this.flipCard = false;
-        if (this.clickedIndex.indexOf(card.id) === -1) {
-          this.clickedIndex.push(card.id);
-        } else {
-          this.clickedIndex = [];
-          console.log("cannot push");
-        }
+        this.clickedIndex.push(card.id);
 
         this.clickedCard.secondCard = event.currentTarget;
         if (
@@ -155,7 +159,6 @@ var app = new Vue({
           this.unflipCard();
         }
       }
-      console.log(this.styleClass.match);
     },
   },
   created() {
