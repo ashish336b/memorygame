@@ -1,0 +1,55 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.board {
+  background-color: #706f70;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: -4px 0px 15px 1px rgba(0, 0, 0, 0.7);
+  margin: 5px;
+  height: 500px;
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+.front,
+.back {
+  width: 100px;
+  height: 100px;
+  margin: 1px;
+  border-radius: 4px;
+}
+.back > i {
+  font-size: 2rem;
+}
+.card .front {
+  background-color: #141214;
+  position: absolute;
+}
+.card .back {
+  background-color: #02b3e4;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flip {
+  opacity: 0;
+}
