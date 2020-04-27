@@ -60,15 +60,15 @@ body {
   background-color: #ea1578;
 }
 
-.reset{
-   display: flex;
-   justify-content: center;
-   padding : 30px;
+.reset {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
 }
-.reset a{
-   padding : 5px;
-   background-color: #02b3e4;
-   font-size: 1.4rem;
-   text-decoration: none;
-   color: wheat;
+.reset a {
+  padding: 5px;
+  background-color: #02b3e4;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: wheat;
 }

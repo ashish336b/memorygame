@@ -104,6 +104,12 @@ var app = new Vue({
         function () {
           this.clickedCard.firstCard.classList.remove("flip");
           this.clickedCard.secondCard.classList.remove("flip");
+          this.clickedCard.firstCard.parentNode.firstChild.classList.remove(
+            "unmatch"
+          );
+          this.clickedCard.secondCard.parentNode.firstChild.classList.remove(
+            "unmatch"
+          );
           this.canClick = true;
         }.bind(this),
         1000
