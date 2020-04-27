@@ -54,5 +54,8 @@ body {
   opacity: 0;
 }
 .card .match {
-   background-color: yellow !important;
+  background-color: #dbb858;
+}
+.card .unmatch {
+  background-color: #ea1578;
 }

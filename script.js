@@ -100,7 +100,6 @@ var app = new Vue({
       console.log("matched");
     },
     unflipCard: function () {
-      console.log("not match");
       setTimeout(
         function () {
           this.clickedCard.firstCard.classList.remove("flip");
@@ -114,7 +113,6 @@ var app = new Vue({
       if (!this.canClick) {
         return;
       }
-      console.log(event.currentTarget.dataset.value);
       event.currentTarget.classList.add("flip");
       if (!this.flipCard) {
         this.flipCard = true;
@@ -123,7 +121,6 @@ var app = new Vue({
         this.canClick = false;
         this.flipCard = false;
         this.clickedCard.secondCard = event.currentTarget;
-        console.log(this.clickedCard.secondCard);
         if (
           this.clickedCard.firstCard.dataset.value ===
           this.clickedCard.secondCard.dataset.value
@@ -136,9 +133,27 @@ var app = new Vue({
           );
           this.matchCard();
         } else {
+          this.clickedCard.firstCard.parentNode.firstChild.classList.add(
+            "unmatch"
+          );
+          this.clickedCard.secondCard.parentNode.firstChild.classList.add(
+            "unmatch"
+          );
           this.unflipCard();
         }
       }
     },
+  },
+  created() {
+    var array = this.cards;
+    var m = array.length,
+      t,
+      i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
   },
 });
