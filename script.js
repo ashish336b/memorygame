@@ -1,10 +1,11 @@
 var app = new Vue({
   el: "#app",
   data: {
-    clickCount: 0,
-    isClickable: true,
-    firstCard: "",
-    secondCard: "",
+    flipCard: false,
+    clickedCard: {
+      firstCard: "",
+      secondCard: "",
+    },
     clickedIndex: [],
     styleClass: {
       flip: false,
@@ -93,31 +94,42 @@ var app = new Vue({
     ],
   },
   methods: {
+    matchCard: function () {
+      console.log("matched");
+    },
+    unflipCard: function () {
+      console.log("not match");
+      setTimeout(
+        function () {
+          this.clickedCard.firstCard.classList.remove("flip");
+          this.clickedCard.secondCard.classList.remove("flip");
+        }.bind(this),
+        1000
+      );
+    },
     showClass: function (card, event) {
-      if (!this.isClickable) {
-        console.log("click after 1 second");
-        return;
-      }
+      console.log(event.currentTarget.dataset.value);
       event.currentTarget.classList.add("flip");
-      if (this.clickCount == 0) {
-        this.clickCount = 1;
-        this.firstCard = event.currentTarget;
-        this.firstCard.classList.add("flip");
-      }
-      if (this.clickCount == 1) {
-        this.isClickable = false;
-        this.secondCard = event.currentTarget;
-        if (this.firstCard.dataset.value === this.secondCard.dataset.value) {
-          console.log("matched");
-        } else {
-          setTimeout(
-            function () {
-              this.firstCard.classList.remove("flip");
-              this.secondCard.classList.remove("flip");
-              this.isClickable = true;
-            }.bind(this),
-            1000
+      if (!this.flipCard) {
+        this.flipCard = true;
+        this.clickedCard.firstCard = event.currentTarget;
+      } else {
+        this.flipCard = false;
+        this.clickedCard.secondCard = event.currentTarget;
+        console.log(this.clickedCard.secondCard);
+        if (
+          this.clickedCard.firstCard.dataset.value ===
+          this.clickedCard.secondCard.dataset.value
+        ) {
+          this.clickedCard.firstCard.parentNode.firstChild.classList.add(
+            "match"
           );
+          this.clickedCard.secondCard.parentNode.firstChild.classList.add(
+            "match"
+          );
+          this.matchCard();
+        } else {
+          this.unflipCard();
         }
       }
     },

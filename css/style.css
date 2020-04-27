@@ -53,3 +53,6 @@ body {
 .flip {
   opacity: 0;
 }
+.card .match {
+   background-color: yellow !important;
+}
