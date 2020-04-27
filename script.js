@@ -8,7 +8,6 @@ var app = new Vue({
       firstCard: "",
       secondCard: "",
     },
-    clickedIndex: [],
     styleClass: {
       flip: false,
       match: [],
