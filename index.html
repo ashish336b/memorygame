@@ -21,7 +21,9 @@
     <section id="app">
       <div class="text-center">
         <h4 class="text-warning">Matching Game</h4>
-        <a href="/helloworld" class="btn btn-success">Play Again</a>
+        <button  class="btn btn-success" @click="resetGame()"
+          >Reset</
+        >
       </div>
       <div class="game-container">
         <div class="board">
@@ -46,7 +48,8 @@
           </div>
         </div>
       </div>
-      <div class="dialog-container">
+      {{modelBox.isModelClosed}}
+      <div class="dialog-container" v-if="modelBox.isVisible">
         <div>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -54,12 +57,16 @@
                 <h5 class="modal-title mx-auto text-primary">
                   Congratulation You Won!
                 </h5>
-                <button type="button" class="close">
+                <button type="button" class="close" @click="closeModel()">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  @click="resetGame()"
+                >
                   Play Again
                 </button>
               </div>

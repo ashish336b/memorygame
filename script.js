@@ -8,6 +8,10 @@ var app = new Vue({
       firstCard: "",
       secondCard: "",
     },
+    modelBox: {
+      isVisible: false,
+      isModelClosed: true,
+    },
     styleClass: {
       flip: false,
       match: [],
@@ -96,12 +100,40 @@ var app = new Vue({
     ],
   },
   methods: {
+    suffleCards: function () {
+      var array = this.cards;
+      var m = array.length,
+        t,
+        i;
+      while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+    },
+    closeModel: function () {
+      this.modelBox.isVisible = false;
+    },
+    resetGame: function () {
+      this.styleClass.match = [];
+      this.styleClass.flip = false;
+      this.suffleCards();
+      if (this.modelBox.isVisible) {
+        this.closeModel();
+      }
+    },
     matchCard: function () {
       this.canClick = true;
-      if (this.clickedIndex.length === 2) {
-        this.clickedIndex = [];
-      }
       this.clickedIndex = [];
+      if (this.styleClass.match.length === this.cards.length) {
+        setTimeout(
+          function () {
+            this.modelBox.isVisible = true;
+          }.bind(this),
+          500
+        );
+      }
     },
     unflipCard: function () {
       setTimeout(
@@ -150,7 +182,6 @@ var app = new Vue({
             this.styleClass.match.push(...this.clickedIndex);
           } else {
             this.clickedIndex = [];
-            console.log("cannot push");
           }
           this.matchCard();
         } else {
@@ -161,15 +192,6 @@ var app = new Vue({
     },
   },
   created() {
-    var array = this.cards;
-    var m = array.length,
-      t,
-      i;
-    while (m) {
-      i = Math.floor(Math.random() * m--);
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
+    // this.suffleCards();
   },
 });
