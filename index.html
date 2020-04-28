@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Title</title>
     <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <script
       src="https://kit.fontawesome.com/54761a1713.js"
       crossorigin="anonymous"
@@ -13,8 +19,11 @@
 
   <body>
     <section id="app">
-      <h1>Game</h1>
-      <div class="container">
+      <div class="text-center">
+        <h4 class="text-warning">Matching Game</h4>
+        <a href="/helloworld" class="btn btn-success">Play Again</a>
+      </div>
+      <div class="game-container">
         <div class="board">
           <div class="card" v-for="card in cards" :id="card.id" :key="card.id">
             <div
@@ -37,8 +46,26 @@
           </div>
         </div>
       </div>
-      <div class="reset">
-        <a href="/Matching-Game">Reset</a>
+      <div class="dialog-container">
+        <div>
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title mx-auto text-primary">
+                  Congratulation You Won!
+                </h5>
+                <button type="button" class="close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary">
+                  Play Again
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
