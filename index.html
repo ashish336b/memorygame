@@ -21,9 +21,7 @@
     <section id="app">
       <div class="text-center">
         <h4 class="text-warning">Matching Game</h4>
-        <button  class="btn btn-success" @click="resetGame()"
-          >Reset</
-        >
+        <button class="btn btn-success" @click="resetGame()">Reset</button>
       </div>
       <div class="game-container">
         <div class="board">
@@ -43,7 +41,7 @@
               :data-value="card.dataKind"
               class="front"
               :class="{'flip': styleClass.flip === card.id || styleClass.match.includes(card.id) || clickedIndex.includes(card.id)}"
-              @click="showClass(card , $event)"
+              @click="showCard(card , $event)"
             ></div>
           </div>
         </div>

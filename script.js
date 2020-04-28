@@ -145,10 +145,11 @@ var app = new Vue({
         1000
       );
     },
-    showClass: function (card, event) {
-      if (!this.canClick) {
-        return;
-      }
+    showCard: function (card, event) {
+      if (!this.canClick) return;
+
+      if (this.styleClass.match.includes(card.id)) return;
+
       event.currentTarget.classList.add("flip");
       this.styleClass.flip = card.id;
       if (!this.flipCard) {
@@ -192,6 +193,6 @@ var app = new Vue({
     },
   },
   created() {
-    // this.suffleCards();
+    this.suffleCards();
   },
 });
