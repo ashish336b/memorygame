@@ -25,7 +25,7 @@
   <body>
     <section id="app">
       <div class="text-center">
-        <h4 class="text-warning p-1 m-1">Matching Game</h4>
+        <h4 class="text-info p-1 m-1">Memory Test Game</h4>
         <div class="row justify-content-center p-1">
           <div class="col-lg-2">
             <button class="btn btn-primary" @click="resetGame()">Reset</button>
@@ -43,7 +43,7 @@
               :class="
               {
                 'match animated bounceIn' : styleClass.match.includes(card.id), 
-                'unmatch animated shake slow': clickedIndex.includes(card.id) && clickedIndex.length === 2
+                'unmatch animated jello slow': clickedIndex.includes(card.id) && clickedIndex.length === 2
               }
             "
             >
