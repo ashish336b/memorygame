@@ -48,7 +48,9 @@
               class="front"
               :class="{'flip': styleClass.flip === card.id || styleClass.match.includes(card.id) || clickedIndex.includes(card.id)}"
               @click="showCard(card , $event)"
-            ></div>
+            >
+              <i class="fab fa-vuejs"></i>
+            </div>
           </div>
         </div>
       </div>

@@ -102,15 +102,15 @@ var app = new Vue({
   },
   methods: {
     suffleCards: function () {
-      var array = this.cards;
-      var m = array.length,
+      var suffledArray = this.cards;
+      var arrayLength = suffledArray.length,
         t,
         i;
-      while (m) {
-        i = Math.floor(Math.random() * m--);
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
+      while (arrayLength) {
+        i = Math.floor(Math.random() * arrayLength--);
+        t = suffledArray[arrayLength];
+        suffledArray[arrayLength] = suffledArray[i];
+        suffledArray[i] = t;
       }
     },
     closeModel: function () {
@@ -126,6 +126,9 @@ var app = new Vue({
       }
     },
     matchCard: function () {
+      this.styleClass.match.indexOf(...this.clickedIndex) === -1
+        ? this.styleClass.match.push(...this.clickedIndex)
+        : (this.clickedIndex = []);
       this.canClick = true;
       this.clickedIndex = [];
       if (this.styleClass.match.length === this.cards.length) {
@@ -136,6 +139,25 @@ var app = new Vue({
           500
         );
       }
+    },
+    processFirstClickEvent: function (card, event) {
+      this.flipCard = true;
+      this.clickedIndex.push(card.id);
+      this.clickedCard.firstCard = event.currentTarget;
+    },
+    processSecondClickEvent: function (card, event) {
+      //cannot click on one card twice
+      if (this.clickedIndex[0] === card.id) return;
+      this.moveCount++;
+      this.canClick = false;
+      this.flipCard = false;
+      this.clickedIndex.push(card.id);
+      this.clickedCard.secondCard = event.currentTarget;
+      //check if both cards matches
+      this.clickedCard.firstCard.dataset.value ===
+      this.clickedCard.secondCard.dataset.value
+        ? this.matchCard()
+        : this.unflipCard();
     },
     unflipCard: function () {
       setTimeout(
@@ -148,54 +170,16 @@ var app = new Vue({
       );
     },
     showCard: function (card, event) {
+      //method that execute upon click
       if (!this.canClick) return;
-
       if (this.styleClass.match.includes(card.id)) return;
-
-      event.currentTarget.classList.add("flip");
       this.styleClass.flip = card.id;
-      if (!this.flipCard) {
-        //first click
-        this.flipCard = true;
-        this.clickedIndex.push(card.id);
-        this.clickedCard.firstCard = event.currentTarget;
-      } else {
-        //cannot click on one card twice
-        this.moveCount++;
-        if (this.clickedIndex[0] === card.id) {
-          return;
-        }
-        //clicked index should be unique and unique
-        if (!this.clickedIndex.indexOf(card.id) === -1) {
-          this.clickedCard = [];
-          return;
-        }
-        //second click
-        this.canClick = false;
-        this.flipCard = false;
-        this.clickedIndex.push(card.id);
-
-        this.clickedCard.secondCard = event.currentTarget;
-        if (
-          this.clickedCard.firstCard.dataset.value ===
-          this.clickedCard.secondCard.dataset.value
-        ) {
-          //if both clicks matches
-          //check for unique matched index
-          if (this.styleClass.match.indexOf(...this.clickedIndex) === -1) {
-            this.styleClass.match.push(...this.clickedIndex);
-          } else {
-            this.clickedIndex = [];
-          }
-          this.matchCard();
-        } else {
-          //if not matches
-          this.unflipCard();
-        }
-      }
+      return !this.flipCard
+        ? this.processFirstClickEvent(card, event)
+        : this.processSecondClickEvent(card, event);
     },
   },
   created() {
-    this.suffleCards();
+    // this.suffleCards();
   },
 });

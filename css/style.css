@@ -40,6 +40,11 @@ body {
 }
 .card .front {
   background-color: #141214;
+  color: green;
+  display: flex;
+  justify-content: center;
+  font-size: 5rem;
+  align-items: center;
   position: absolute;
 }
 .card .back {
@@ -81,3 +86,14 @@ body {
 }
 
 /* animation */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
