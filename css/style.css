@@ -72,11 +72,12 @@ body {
   color: wheat;
 }
 /* dialog box */
-.dialog-container{
+.dialog-container {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  top : 20%;
+  top: 20%;
   width: 100%;
-  
 }
+
+/* animation */

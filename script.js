@@ -3,6 +3,7 @@ var app = new Vue({
   data: {
     flipCard: false,
     canClick: true,
+    moveCount: 0,
     clickedIndex: [],
     clickedCard: {
       firstCard: "",
@@ -117,6 +118,7 @@ var app = new Vue({
     },
     resetGame: function () {
       this.styleClass.match = [];
+      this.clickedIndex = [];
       this.styleClass.flip = false;
       this.suffleCards();
       if (this.modelBox.isVisible) {
@@ -159,6 +161,7 @@ var app = new Vue({
         this.clickedCard.firstCard = event.currentTarget;
       } else {
         //cannot click on one card twice
+        this.moveCount++;
         if (this.clickedIndex[0] === card.id) {
           return;
         }

@@ -11,6 +11,11 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+
     <script
       src="https://kit.fontawesome.com/54761a1713.js"
       crossorigin="anonymous"
@@ -22,6 +27,7 @@
       <div class="text-center">
         <h4 class="text-warning">Matching Game</h4>
         <button class="btn btn-success" @click="resetGame()">Reset</button>
+        <h5 class="text-center">No of Move : {{moveCount}}</h5>
       </div>
       <div class="game-container">
         <div class="board">
@@ -30,8 +36,8 @@
               class="back"
               :class="
               {
-                'match' : styleClass.match.includes(card.id), 
-                'unmatch': clickedIndex.includes(card.id) && clickedIndex.length === 2
+                'match animated bounceIn' : styleClass.match.includes(card.id), 
+                'unmatch animated shake slow': clickedIndex.includes(card.id) && clickedIndex.length === 2
               }
             "
             >
@@ -58,6 +64,12 @@
                 <button type="button" class="close" @click="closeModel()">
                   <span aria-hidden="true">&times;</span>
                 </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  Total Number Of Move :
+                  <span class="text-info">{{moveCount}}</span>
+                </p>
               </div>
               <div class="modal-footer justify-content-center">
                 <button
