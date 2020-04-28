@@ -180,6 +180,6 @@ var app = new Vue({
     },
   },
   created() {
-    // this.suffleCards();
+    this.suffleCards();
   },
 });
