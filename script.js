@@ -120,6 +120,8 @@ var app = new Vue({
       this.styleClass.match = [];
       this.clickedIndex = [];
       this.styleClass.flip = false;
+      this.moveCount = 0;
+      this.flipCard = false;
       this.suffleCards();
       if (this.modelBox.isVisible) {
         this.closeModel();
